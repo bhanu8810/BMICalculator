@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMI Calculator</title>
+    <meta name="author" content="Dr. R.K. Sharma">
+    <meta name="creator" content="Bhanu Pratap - Website Developer">
+    <meta name="description" content="An BMI calculator tool certified by Dr. R.K. Sharma to help users determine their Body Mass Index easily based on height, weight, and gender inputs.">
+    <meta name="keywords" content="BMI Calculator, Body Mass Index, BMI Tool, Health Calculator, Weight Management, Fitness Tracker, Nutrition Guide, Healthy Weight, BMI Analysis, Online BMI Calculator, BMI for Adults, BMI for Children, BMI Results">
+    <meta property="og:title" content="BMI Calculator - Certified by Dr. R.K. Sharma">
+    <meta property="og:description" content="Check your BMI using this easy, BMI calculator tool. Get insights on your health status in seconds.">
+    <meta property="og:type" content="website">
+
+
+    <title> BMI Calculator - Certified by Dr. R.K. Sharma</title>
+
     <style>
+        /* Center the content in the viewport */
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -13,7 +24,9 @@
             min-height: 100vh;
             margin: 0;
             background-color: #f0f8ff;
+            text-align: center; /* Center-aligns text */
         }
+
         .calculator {
             background: white;
             padding: 20px;
@@ -21,40 +34,49 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 100%;
-            text-align: center;
         }
-        .calculator h2 {
+
+        .calculator h1 {
             color: #333;
+            font-size: 1.5em;
             margin-bottom: 5px;
         }
+
         .certified {
             color: #4caf50;
             font-weight: bold;
             font-size: 0.9em;
             margin-bottom: 20px;
         }
+
         .calculator label {
             display: block;
             margin: 8px 0 4px;
             font-weight: bold;
             color: #555;
+            text-align: left; /* Aligns labels left within centered container */
         }
+
         .calculator input[type="number"] {
-            width: 100%;
+            width: calc(100% - 20px); /* Adjust width to account for padding */
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            box-sizing: border-box; /* Ensure padding is included in width */
         }
+
         .gender-options {
             display: flex;
             justify-content: space-between;
             margin-bottom: 16px;
         }
+
         .gender-options label {
             font-weight: normal;
             color: #333;
         }
+
         .calculator button {
             padding: 10px;
             width: 48%;
@@ -65,20 +87,25 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         .calculate-btn {
             background-color: #28a745;
             color: white;
         }
+
         .calculate-btn:hover {
             background-color: #218838;
         }
+
         .clear-btn {
             background-color: #ff6666;
             color: white;
         }
+
         .clear-btn:hover {
             background-color: #cc0000;
         }
+
         .result {
             display: flex;
             align-items: center;
@@ -86,6 +113,7 @@
             margin-top: 20px;
             flex-direction: column;
         }
+
         .gauge {
             width: 120px;
             height: 120px;
@@ -93,6 +121,7 @@
             background-color: #ddd;
             position: relative;
         }
+
         .gauge:before {
             content: '';
             width: 100%;
@@ -104,6 +133,7 @@
             top: 0;
             left: 0;
         }
+
         .gauge .pointer {
             width: 3px;
             height: 60px;
@@ -115,17 +145,44 @@
             transform: rotate(0deg);
             transition: transform 0.3s ease-out;
         }
+
         .category-info {
             margin-top: 10px;
             color: #333;
             font-weight: bold;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .calculator {
+                padding: 15px;
+                width: 90%; /* Make it take more width on smaller screens */
+            }
+
+            .calculator h1 {
+                font-size: 1.3em; /* Adjust heading size */
+            }
+
+            .gender-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .gender-options label {
+                margin: 5px 0; /* Add margin for better spacing */
+            }
+
+            .calculator button {
+                width: 100%; /* Make buttons full width on small screens */
+                margin: 5px 0; /* Add margin for spacing */
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="calculator">
-        <h2>BMI Calculator</h2>
+        <h1> BMI Calculator</h1>
         <div class="certified">Certified by Dr. R.K. Sharma</div>
         
         <form id="bmiForm">
