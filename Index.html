@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive BMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .calculator h2 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .certified {
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        .calculator label {
+            display: block;
+            margin: 8px 0 4px;
+            font-weight: bold;
+            color: #555;
+        }
+        .calculator input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .gender-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .gender-options label {
+            font-weight: normal;
+            color: #333;
+        }
+        .calculator button {
+            padding: 10px;
+            width: 48%;
+            font-size: 16px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .calculate-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        .calculate-btn:hover {
+            background-color: #218838;
+        }
+        .clear-btn {
+            background-color: #ff6666;
+            color: white;
+        }
+        .clear-btn:hover {
+            background-color: #cc0000;
+        }
+        .result {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            flex-direction: column;
+        }
+        .gauge {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #ddd;
+            position: relative;
+        }
+        .gauge:before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(#4caf50 0%, #ffeb3b 50%, #f44336 100%);
+            mask-image: radial-gradient(farthest-side, transparent calc(100% - 10px), black calc(100% - 5px));
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .gauge .pointer {
+            width: 3px;
+            height: 60px;
+            background-color: #333;
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            transform: rotate(0deg);
+            transition: transform 0.3s ease-out;
+        }
+        .category-info {
+            margin-top: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h2>Interactive BMI Calculator</h2>
+        <div class="certified">Certified by Dr. R.K. Sharma</div>
+        
+        <form id="bmiForm">
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" placeholder="Enter height in cm" min="0" required>
+
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" placeholder="Enter weight in kg" min="0" required>
+
+            <div class="gender-options">
+                <label>
+                    <input type="radio" name="gender" value="male" checked> Male
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="female"> Female
+                </label>
+            </div>
+
+            <div style="display: flex; justify-content: space-between;">
+                <button type="button" class="calculate-btn" onclick="calculateBMI()">Calculate BMI</button>
+                <button type="button" class="clear-btn" onclick="clearForm()">Clear</button>
+            </div>
+
+            <div class="result">
+                <div class="gauge">
+                    <div class="pointer" id="pointer"></div>
+                </div>
+                <div id="bmiResult" class="category-info"></div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+
+            if (!height || !weight || height <= 0 || weight <= 0) {
+                alert("Please enter valid, non-negative values for height and weight.");
+                return;
+            }
+
+            const heightInMeters = height / 100;
+            const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(2);
+
+            let category = '';
+            let rotationAngle = 0;
+
+            if (bmi < 18.5) {
+                category = 'Underweight';
+                rotationAngle = 30;
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                category = 'Normal weight';
+                rotationAngle = 90;
+            } else if (bmi >= 25 && bmi <= 29.9) {
+                category = 'Overweight';
+                rotationAngle = 150;
+            } else {
+                category = 'Obese';
+                rotationAngle = 210;
+            }
+
+            document.getElementById('pointer').style.transform = `rotate(${rotationAngle}deg)`;
+            document.getElementById('bmiResult').innerHTML = `
+                Gender: ${gender.charAt(0).toUpperCase() + gender.slice(1)} <br>
+                BMI: ${bmi} (${category})
+            `;
+        }
+
+        function clearForm() {
+            document.getElementById('height').value = '';
+            document.getElementById('weight').value = '';
+            document.getElementById('pointer').style.transform = 'rotate(0deg)';
+            document.getElementById('bmiResult').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
