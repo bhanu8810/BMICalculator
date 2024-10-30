@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Dr. R.K. Sharma">
     <meta name="creator" content="Bhanu Pratap - Website Developer">
-    <meta name="description" content="An BMI calculator tool certified by Dr. R.K. Sharma to help users determine their Body Mass Index easily based on height, weight, and gender inputs.">
+    <meta name="description" content="A BMI calculator tool certified by Dr. R.K. Sharma to help users determine their Body Mass Index easily based on height, weight, and gender inputs.">
     <meta name="keywords" content="BMI Calculator, Body Mass Index, BMI Tool, Health Calculator, Weight Management, Fitness Tracker, Nutrition Guide, Healthy Weight, BMI Analysis, Online BMI Calculator, BMI for Adults, BMI for Children, BMI Results">
     <meta property="og:title" content="BMI Calculator - Certified by Dr. R.K. Sharma">
     <meta property="og:description" content="Check your BMI using this easy, BMI calculator tool. Get insights on your health status in seconds.">
     <meta property="og:type" content="website">
 
-
-    <title> BMI Calculator - Certified by Dr. R.K. Sharma</title>
+    <title>BMI Calculator - Certified by Dr. R.K. Sharma</title>
 
     <style>
         /* Center the content in the viewport */
@@ -34,6 +33,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 100%;
+            position: relative;
         }
 
         .calculator h1 {
@@ -152,6 +152,16 @@
             font-weight: bold;
         }
 
+        .watermark {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            opacity: 0.7; /* Make it subtle */
+            display: none; /* Hidden initially */
+            width: 150px;
+            height: auto;
+        }
+
         /* Responsive Styles */
         @media (max-width: 600px) {
             .calculator {
@@ -212,6 +222,8 @@
                 </div>
                 <div id="bmiResult" class="category-info"></div>
             </div>
+            <!-- Watermark Image -->
+            <img src="certified.png" alt="Certified Logo" class="watermark" id="watermark">
         </form>
     </div>
 
@@ -251,6 +263,9 @@
                 Gender: ${gender.charAt(0).toUpperCase() + gender.slice(1)} <br>
                 BMI: ${bmi} (${category})
             `;
+
+            // Show the watermark
+            document.getElementById('watermark').style.display = 'block';
         }
 
         function clearForm() {
@@ -258,6 +273,7 @@
             document.getElementById('weight').value = '';
             document.getElementById('pointer').style.transform = 'rotate(0deg)';
             document.getElementById('bmiResult').innerHTML = '';
+            document.getElementById('watermark').style.display = 'none';
         }
     </script>
 </body>
